@@ -1,5 +1,5 @@
 import MenuBtn from "../menubtn/MenuBtn";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./NavBar.css";
 import GoogleLogo from "../../assets/google-logo.svg";
@@ -8,6 +8,7 @@ import { useAuth } from "../../contexts/AuthContext";
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, signInWithGoogle, logout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -19,6 +20,10 @@ function NavBar() {
     } else {
       await signInWithGoogle();
     }
+  };
+
+  const handleAddQuiz = () => {
+    navigate("/add-quiz");
   };
 
   return (
@@ -36,8 +41,18 @@ function NavBar() {
           About
         </Link>
 
+        {user && (
+          <Link className="navbar-link" to="/profile">
+            Profile
+          </Link>
+        )}
+
         <div className="login-btn-wrap">
-          {user && <button className="add-quiz-btn">Add Quiz</button>}
+          {user && (
+            <button className="add-quiz-btn" onClick={handleAddQuiz}>
+              Add Quiz
+            </button>
+          )}
           <button className="login-btn" onClick={handleAuthClick}>
             {user ? (
               "Logout"
