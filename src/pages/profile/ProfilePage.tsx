@@ -1,4 +1,3 @@
-import React from "react";
 import NavBar from "../../components/navbar/NavBar";
 import { useAuth } from "../../contexts/AuthContext";
 import "./ProfilePage.css";
