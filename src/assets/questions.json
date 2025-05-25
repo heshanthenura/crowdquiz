@@ -1,0 +1,424 @@
+{
+    "questions": [
+        {
+            "question": "What does OOP stand for?",
+            "answers": [
+                {
+                    "text": "Object-Oriented Programming",
+                    "isCorrect": true
+                },
+                {
+                    "text": "Operational Output Programming",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Object Order Process",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Only One Program",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "Which of these is not a principle of OOP?",
+            "answers": [
+                {
+                    "text": "Encapsulation",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Polymorphism",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Compilation",
+                    "isCorrect": true
+                },
+                {
+                    "text": "Inheritance",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "What is encapsulation in OOP?",
+            "answers": [
+                {
+                    "text": "Hiding internal state and requiring all interaction to be performed through an object's methods",
+                    "isCorrect": true
+                },
+                {
+                    "text": "Using multiple inheritance",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Wrapping multiple classes together",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Adding comments to code",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "Which OOP concept allows objects to take on many forms?",
+            "answers": [
+                {
+                    "text": "Polymorphism",
+                    "isCorrect": true
+                },
+                {
+                    "text": "Inheritance",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Abstraction",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Encapsulation",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "In OOP, what is inheritance?",
+            "answers": [
+                {
+                    "text": "A mechanism where one class acquires the properties of another",
+                    "isCorrect": true
+                },
+                {
+                    "text": "A way to declare a variable",
+                    "isCorrect": false
+                },
+                {
+                    "text": "A loop structure",
+                    "isCorrect": false
+                },
+                {
+                    "text": "A function call",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "What keyword is used in many OOP languages to inherit a class?",
+            "answers": [
+                {
+                    "text": "extends",
+                    "isCorrect": true
+                },
+                {
+                    "text": "implements",
+                    "isCorrect": false
+                },
+                {
+                    "text": "inherits",
+                    "isCorrect": false
+                },
+                {
+                    "text": "uses",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "Which of these best defines abstraction?",
+            "answers": [
+                {
+                    "text": "Hiding unnecessary details and showing only the essential features",
+                    "isCorrect": true
+                },
+                {
+                    "text": "Using public variables",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Showing all internal details",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Writing all code in one method",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "Which OOP principle restricts direct access to some of an object's components?",
+            "answers": [
+                {
+                    "text": "Encapsulation",
+                    "isCorrect": true
+                },
+                {
+                    "text": "Inheritance",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Polymorphism",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Overloading",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "Which of the following is an example of polymorphism?",
+            "answers": [
+                {
+                    "text": "Method Overloading",
+                    "isCorrect": true
+                },
+                {
+                    "text": "Using a for loop",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Variable declaration",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Importing a library",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "In Java, which access modifier provides the least accessibility?",
+            "answers": [
+                {
+                    "text": "private",
+                    "isCorrect": true
+                },
+                {
+                    "text": "public",
+                    "isCorrect": false
+                },
+                {
+                    "text": "protected",
+                    "isCorrect": false
+                },
+                {
+                    "text": "default",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "What is a class in OOP?",
+            "answers": [
+                {
+                    "text": "A blueprint for creating objects",
+                    "isCorrect": true
+                },
+                {
+                    "text": "An actual object",
+                    "isCorrect": false
+                },
+                {
+                    "text": "A function",
+                    "isCorrect": false
+                },
+                {
+                    "text": "A type of variable",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "What is an object in OOP?",
+            "answers": [
+                {
+                    "text": "An instance of a class",
+                    "isCorrect": true
+                },
+                {
+                    "text": "A type of method",
+                    "isCorrect": false
+                },
+                {
+                    "text": "A data type",
+                    "isCorrect": false
+                },
+                {
+                    "text": "A namespace",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "Which language does not support OOP?",
+            "answers": [
+                {
+                    "text": "C",
+                    "isCorrect": true
+                },
+                {
+                    "text": "Java",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Python",
+                    "isCorrect": false
+                },
+                {
+                    "text": "C++",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "Which keyword is used to create an object in Java?",
+            "answers": [
+                {
+                    "text": "new",
+                    "isCorrect": true
+                },
+                {
+                    "text": "object",
+                    "isCorrect": false
+                },
+                {
+                    "text": "create",
+                    "isCorrect": false
+                },
+                {
+                    "text": "this",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "What is method overriding?",
+            "answers": [
+                {
+                    "text": "Redefining a method in a subclass",
+                    "isCorrect": true
+                },
+                {
+                    "text": "Creating multiple methods with the same name but different parameters",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Calling a method from a base class",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Hiding a method",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "Which concept allows a subclass to provide a specific implementation of a method declared in a parent class?",
+            "answers": [
+                {
+                    "text": "Method Overriding",
+                    "isCorrect": true
+                },
+                {
+                    "text": "Method Overloading",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Encapsulation",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Constructor",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "Which of these is not a type of inheritance in OOP?",
+            "answers": [
+                {
+                    "text": "Linear Inheritance",
+                    "isCorrect": true
+                },
+                {
+                    "text": "Single Inheritance",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Multiple Inheritance",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Hierarchical Inheritance",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "Which keyword in many OOP languages prevents a method from being overridden?",
+            "answers": [
+                {
+                    "text": "final",
+                    "isCorrect": true
+                },
+                {
+                    "text": "private",
+                    "isCorrect": false
+                },
+                {
+                    "text": "static",
+                    "isCorrect": false
+                },
+                {
+                    "text": "abstract",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "Which of these is an example of abstraction in Java?",
+            "answers": [
+                {
+                    "text": "Using interfaces",
+                    "isCorrect": true
+                },
+                {
+                    "text": "Creating variables",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Calling a method",
+                    "isCorrect": false
+                },
+                {
+                    "text": "Using the println function",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "question": "What does the term 'constructor' refer to in OOP?",
+            "answers": [
+                {
+                    "text": "A special method used to initialize objects",
+                    "isCorrect": true
+                },
+                {
+                    "text": "A function to destroy objects",
+                    "isCorrect": false
+                },
+                {
+                    "text": "A method to inherit a class",
+                    "isCorrect": false
+                },
+                {
+                    "text": "A loop for object creation",
+                    "isCorrect": false
+                }
+            ]
+        }
+    ]
+}

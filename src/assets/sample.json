@@ -1,0 +1,44 @@
+[
+    {
+        "question": "What is OOP?",
+        "answers": [
+            {
+                "text": "a1",
+                "correct": true
+            },
+            {
+                "text": "a2",
+                "correct": false
+            },
+            {
+                "text": "a3",
+                "correct": false
+            },
+            {
+                "text": "a4",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "question": "What is OOP?",
+        "answers": [
+            {
+                "text": "a1",
+                "correct": true
+            },
+            {
+                "text": "a2",
+                "correct": false
+            },
+            {
+                "text": "a3",
+                "correct": false
+            },
+            {
+                "text": "a4",
+                "correct": false
+            }
+        ]
+    }
+]
