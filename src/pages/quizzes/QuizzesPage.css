@@ -1,0 +1,49 @@
+.quizzes-page {
+  min-height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.quizzes-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.quizzes-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.quizzes-header h1 {
+  font-family: "Inter", sans-serif;
+  font-size: 3rem;
+  color: #0059ff;
+  margin-bottom: 15px;
+}
+
+.quizzes-subtitle {
+  font-family: "Inter", sans-serif;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.quizzes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+  .quizzes-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .quizzes-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .quizzes-grid {
+    grid-template-columns: 1fr;
+  }
+}

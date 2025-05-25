@@ -1,0 +1,181 @@
+.navbar-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  /* border-bottom: 1px solid #0059ff; */
+}
+
+.nav-heading {
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  color: #0059ff;
+}
+
+.menu-btn {
+  display: none;
+}
+
+.navbar-links {
+  margin-left: 40px;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  gap: 15px;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: black;
+  font-family: "Inter", sans-serif;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.navbar-link:hover {
+  color: #0059ff;
+  transform: translateY(-2px);
+}
+
+.navbar-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: #0059ff;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.navbar-link:hover::after {
+  width: 100%;
+}
+
+.login-btn-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  flex-grow: 1;
+  gap: 15px;
+}
+
+.add-quiz-btn {
+  background-color: #ffffff;
+  border: 2px solid #0059ff;
+  color: #0059ff;
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 4px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  min-width: 120px;
+  height: 40px;
+}
+
+.add-quiz-btn:hover {
+  background-color: #0059ff;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 89, 255, 0.2);
+}
+
+.login-btn {
+  background-color: #0059ff;
+  border: none;
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 4px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+  height: 40px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.google-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  background-color: white;
+  border-radius: 50%;
+  padding: 4px;
+}
+
+.login-btn:hover {
+  background-color: #0047cc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 89, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .navbar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 15px;
+    width: 100%;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .nav-heading {
+    margin: 0;
+  }
+
+  .menu-btn {
+    display: block;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 24px;
+  }
+
+  .navbar-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    gap: 15px;
+    padding: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .navbar-links.show {
+    max-height: 500px;
+    opacity: 1;
+    margin: 20px 0 0 0;
+    padding: 20px 0;
+  }
+
+  .login-btn-wrap {
+    margin-top: 15px;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .add-quiz-btn,
+  .login-btn {
+    width: 100%;
+    max-width: 200px;
+  }
+}

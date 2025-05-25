@@ -1,0 +1,42 @@
+.menu-btn {
+  width: 30px;
+  height: 24px;
+  position: relative;
+  cursor: pointer;
+}
+
+.bar {
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: #0059ff;
+  border-radius: 2px;
+  transition: all 0.4s ease;
+  left: 0;
+}
+
+.bar1 {
+  top: 0;
+}
+
+.bar2 {
+  top: 10px;
+}
+
+.bar3 {
+  top: 20px;
+}
+
+.menu-btn.open .bar1 {
+  transform: rotate(45deg);
+  top: 10px;
+}
+
+.menu-btn.open .bar2 {
+  opacity: 0;
+}
+
+.menu-btn.open .bar3 {
+  transform: rotate(-45deg);
+  top: 10px;
+}

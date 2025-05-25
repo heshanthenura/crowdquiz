@@ -1,0 +1,35 @@
+.recent-section-wrap {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #ffffff;
+}
+
+.recent-heading {
+  font-family: "Inter", sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  color: #225cd9;
+  font-weight: 500;
+}
+
+.recent-quizzes-wrap {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  row-gap: 30px;
+  column-gap: 10px;
+  padding: 20px;
+  place-items: center;
+  max-width: 1200px;
+}
+
+@media (max-width: 768px) {
+  .recent-quizzes-wrap {
+    grid-template-columns: 1fr;
+    place-items: center;
+  }
+}

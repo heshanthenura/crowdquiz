@@ -1,0 +1,30 @@
+.welcome-container {
+  /* background-color: #0059ff; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+}
+
+.welcome-text {
+  width: 35svw;
+  object-fit: cover;
+  max-width: 500px;
+}
+
+.welcome-image {
+  width: 35svw;
+  object-fit: cover;
+  max-width: 500px;
+}
+
+@media (max-width: 768px) {
+  .welcome-container {
+    flex-direction: column-reverse;
+    gap: 0;
+  }
+  .welcome-image,
+  .welcome-text {
+    width: 100svw;
+  }
+}

@@ -1,0 +1,10 @@
+.quiz-type {
+  padding: 4px 12px;
+  border-radius: 20px;
+  background-color: #0059ff;
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: inline-block;
+}
