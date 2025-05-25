@@ -1,4 +1,3 @@
-import React from "react";
 import "./RecentSection.css";
 import QuizCard from "../quizecard/QuizCard";
 
