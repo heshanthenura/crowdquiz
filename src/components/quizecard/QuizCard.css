@@ -63,3 +63,10 @@
   gap: 10px;
   flex-wrap: wrap;
 }
+
+.quiz-card-time {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0 0 15px 0;
+}
