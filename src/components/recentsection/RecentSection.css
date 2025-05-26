@@ -17,19 +17,86 @@
 }
 
 .recent-quizzes-wrap {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  row-gap: 30px;
-  column-gap: 10px;
+  /* width: 100%; */ /* Remove or comment out */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Adjust gap as needed */
   padding: 20px;
-  place-items: center;
+  justify-content: center; /* Center the cards */
   max-width: 1200px;
 }
 
 @media (max-width: 768px) {
   .recent-quizzes-wrap {
-    grid-template-columns: 1fr;
-    place-items: center;
+    justify-content: center; /* Ensure centering on smaller screens */
   }
+}
+
+/* Updated styles for the loading spinner with vendor prefixes */
+.loading-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  -webkit-animation: spin 1s linear infinite; /* For Safari and Chrome */
+  -moz-animation: spin 1s linear infinite; /* For Firefox */
+  -o-animation: spin 1s linear infinite; /* For Opera */
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  /* Vendor prefix for keyframes */
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes spin {
+  /* For Firefox */
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes spin {
+  /* For Opera */
+  0% {
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -o-transform: rotate(360deg);
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+}
+
+.loading-container p {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: #3498db;
+  margin-top: 10px;
+  text-align: center;
 }
