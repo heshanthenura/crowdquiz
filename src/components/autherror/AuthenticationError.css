@@ -1,0 +1,67 @@
+.authentication-error {
+  background-color: #f0f4ff;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.error-box {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  color: #1a3e94;
+  max-width: 400px;
+  width: 100%;
+}
+
+.error-box h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.error-box p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.home-button {
+  background-color: #225cd9;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+}
+
+.home-button:hover {
+  background-color: #1a48b8;
+}
+
+/* 📱 Mobile responsiveness */
+@media (max-width: 480px) {
+  .error-box {
+    padding: 20px;
+  }
+
+  .error-box h1 {
+    font-size: 1.5rem;
+  }
+
+  .error-box p {
+    font-size: 1rem;
+  }
+
+  .home-button {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+  }
+}

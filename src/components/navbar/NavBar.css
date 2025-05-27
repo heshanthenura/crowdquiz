@@ -1,10 +1,40 @@
 .navbar-wrap {
   width: 100%;
-  display: flex;
-  align-items: center;
   padding: 10px 20px;
   background-color: #ffffff;
-  /* border-bottom: 1px solid #0059ff; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* Sections */
+.navbar-left,
+.navbar-center,
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Left (Logo) */
+.navbar-left {
+  flex: 1;
+}
+
+/* Center (Links) */
+.navbar-center {
+  flex: 2;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* Right (Login/Add) */
+.navbar-right {
+  flex: 1;
+  justify-content: flex-end;
+  gap: 15px;
 }
 
 .nav-heading {
@@ -16,14 +46,6 @@
 
 .menu-btn {
   display: none;
-}
-
-.navbar-links {
-  margin-left: 40px;
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-  gap: 15px;
 }
 
 .navbar-link {
@@ -57,14 +79,6 @@
   width: 100%;
 }
 
-.login-btn-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  flex-grow: 1;
-  gap: 15px;
-}
-
 .add-quiz-btn {
   background-color: #ffffff;
   border: 2px solid #0059ff;
@@ -76,8 +90,9 @@
   cursor: pointer;
   transition: all 0.3s ease;
   border-radius: 4px;
-  min-width: 120px;
+  min-width: max-content;
   height: 40px;
+  white-space: nowrap;
 }
 
 .add-quiz-btn:hover {
@@ -121,61 +136,46 @@
   box-shadow: 0 4px 8px rgba(0, 89, 255, 0.2);
 }
 
+/* 🔽 Mobile responsive */
 @media (max-width: 768px) {
   .navbar-wrap {
-    display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px 15px;
+  }
+
+  .navbar-left {
     width: 100%;
-    position: relative;
-    overflow-x: hidden;
+    justify-content: space-between;
   }
 
-  .nav-heading {
-    margin: 0;
-  }
-
-  .menu-btn {
-    display: block;
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    font-size: 24px;
-  }
-
-  .navbar-links {
-    display: flex;
+  .navbar-center,
+  .navbar-right {
+    width: 100%;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    margin: 0;
-    gap: 15px;
-    padding: 0;
+    margin-top: 10px;
     max-height: 0;
     opacity: 0;
     overflow: hidden;
     transition: all 0.3s ease-in-out;
   }
 
-  .navbar-links.show {
+  .navbar-center.show,
+  .navbar-right.show {
     max-height: 500px;
     opacity: 1;
-    margin: 20px 0 0 0;
-    padding: 20px 0;
   }
 
-  .login-btn-wrap {
-    margin-top: 15px;
-    width: 100%;
-    justify-content: center;
-    flex-direction: column;
-    gap: 10px;
+  .menu-btn {
+    display: block;
+    font-size: 24px;
+    cursor: pointer;
   }
 
   .add-quiz-btn,
   .login-btn {
     width: 100%;
     max-width: 200px;
+    margin: 5px 0;
   }
 }

@@ -1,29 +1,47 @@
+import { useEffect, useState } from "react";
+import { onAuthStateChanged, type User } from "firebase/auth";
+import { auth } from "../../firebase/config";
+
 import NavBar from "../../components/navbar/NavBar";
 
 import "./ProfilePage.css";
+import AuthenticationError from "../../components/autherror/AuthenticationError";
 
 function ProfilePage() {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        console.log("User is logged in:", currentUser);
+        setUser(currentUser);
+      } else {
+        console.log("No user is logged in");
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div className="profile-page">
-      <NavBar />
-      <div className="profile-content">
-        <div className="profile-header">
-          <h1>My Profile</h1>
-        </div>
-
-        <div className="profile-card">
-          <div className="profile-image-container">
+      {user ? (
+        <div>
+          <NavBar />
+          <div className="profile-details-wrap">
             <img
-              src="{user.photoURL}"
-              alt={"Profile"}
-              className="profile-image"
+              className="profile-picture"
+              src={user.photoURL ?? "/default-profile.png"}
+              alt="Profile"
             />
-
-            <div className="profile-image-placeholder"></div>
+            <h2 className="profile-name">{user.displayName ?? "No Name"}</h2>
+            <p className="profile-email">{user.email ?? "No Email"}</p>
           </div>
-          <div className="profile-info"></div>
         </div>
-      </div>
+      ) : (
+        <AuthenticationError />
+      )}
     </div>
   );
 }
