@@ -256,6 +256,29 @@
   font-style: italic;
 }
 
+.json-validity-message {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.json-validity-message.valid {
+  font-family: "Inter", sans-serif;
+
+  background-color: #e9f7ef;
+  color: #239453;
+  border: 1px solid #c6e7d7;
+}
+
+.json-validity-message.invalid {
+  font-family: "Inter", sans-serif;
+  background-color: #fdeded;
+  color: #f05252;
+  border: 1px solid #fbc0c0;
+}
+
 @media (max-width: 768px) {
   .add-quiz-content {
     padding: 30px 20px;
@@ -278,19 +301,4 @@
   .button-group {
     flex-direction: column;
   }
-}
-
-.loading-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #007bff; /* Using a standard blue, adjust as needed */
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2em;
-  z-index: 9999; /* Ensure it's on top */
 }

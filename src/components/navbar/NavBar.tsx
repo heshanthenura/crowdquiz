@@ -56,7 +56,10 @@ function NavBar() {
 
       <div className={`navbar-right ${isMenuOpen ? "show" : ""}`}>
         {user && (
-          <button className="add-quiz-btn" onClick={() => navigate("/create")}>
+          <button
+            className="add-quiz-btn"
+            onClick={() => navigate("/add-quiz")}
+          >
             Add Quiz
           </button>
         )}

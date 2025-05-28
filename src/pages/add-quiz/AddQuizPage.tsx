@@ -1,7 +1,66 @@
+import { useEffect, useState } from "react";
 import NavBar from "../../components/navbar/NavBar";
 import "./AddQuizPage.css";
+import { validateJson } from "../../utils/jsonValidator";
+import { type QuizForm } from "../../types/QuizForm";
+import { type ValidationResult } from "../../types/ValidationResult";
+import { addQuiz } from "../../utils/addQuiz";
+import type { Quiz } from "../../types/Quiz";
 
 function AddQuizPage() {
+  const [jsonInput, setJsonInput] = useState("");
+  const [validation, setValidation] = useState<ValidationResult>({
+    valid: false,
+    count: 0,
+    questions: [],
+    error: "",
+  });
+
+  const [form, setForm] = useState<QuizForm>({
+    title: "",
+    description: "",
+    time: 60,
+    numberOfQuestions: 20,
+    quizType: ["MCQ"],
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]:
+        name === "time" || name === "numberOfQuestions" ? Number(value) : value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!validation.valid) {
+      alert("Please enter a valid JSON");
+      return;
+    } else {
+      const quiz: Quiz = {
+        ...form,
+        userId: undefined,
+        userName: null,
+        userEmail: null,
+        dateCreated: new Date().toISOString(),
+        timeCreated: new Date().getTime(),
+        questions: validation.questions,
+      };
+
+      addQuiz(quiz);
+    }
+  };
+
+  useEffect(() => {
+    const result = validateJson(jsonInput);
+    setValidation(result);
+    console.log(result.questions);
+  }, [jsonInput]);
+
   return (
     <div className="add-quiz-page">
       <NavBar />
@@ -11,7 +70,7 @@ function AddQuizPage() {
           <p>Share your knowledge with the community</p>
         </div>
 
-        <form className="quiz-form">
+        <form className="quiz-form" onSubmit={handleSubmit}>
           <div className="form-section">
             <div className="form-group">
               <label htmlFor="title">Quiz Title</label>
@@ -19,9 +78,9 @@ function AddQuizPage() {
                 type="text"
                 id="title"
                 name="title"
-                value="asdasd"
                 placeholder="Enter quiz title"
                 required
+                onChange={handleChange}
               />
             </div>
 
@@ -30,9 +89,9 @@ function AddQuizPage() {
               <textarea
                 id="description"
                 name="description"
-                value="12313"
                 placeholder="Enter quiz description"
                 required
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -47,21 +106,21 @@ function AddQuizPage() {
                 <button
                   type="button"
                   disabled
-                  className={`checkbox-label active`}
+                  className={`checkbox-label inactive`}
                 >
                   Essay
                 </button>
                 <button
                   type="button"
                   disabled
-                  className={`checkbox-label active`}
+                  className={`checkbox-label inactive`}
                 >
                   Structured Essay
                 </button>
                 <button
                   type="button"
                   disabled
-                  className={`checkbox-label active`}
+                  className={`checkbox-label inactive`}
                 >
                   Other
                 </button>
@@ -75,9 +134,10 @@ function AddQuizPage() {
                   type="number"
                   id="time"
                   name="time"
-                  value="60"
+                  value={form.time}
                   placeholder="60"
                   min="1"
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -88,9 +148,10 @@ function AddQuizPage() {
                   type="number"
                   id="numberOfQuestions"
                   name="numberOfQuestions"
-                  value="20"
+                  value={form.numberOfQuestions}
                   placeholder="20"
                   min="1"
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -99,13 +160,20 @@ function AddQuizPage() {
             <div className="form-group">
               <div className="json-header">
                 <label>Questions (JSON Format)</label>
-                <button type="button" className="validate-btn">
-                  Validate JSON
-                </button>
+                <div
+                  className={`json-validity-message ${
+                    validation.valid ? "valid" : "invalid"
+                  }`}
+                >
+                  {validation.valid
+                    ? `Valid JSON - ${validation.count} Questions Found`
+                    : validation.error}
+                </div>
               </div>
 
               <textarea
                 className="json-input"
+                onChange={(e) => setJsonInput(e.target.value)}
                 placeholder={`{
   "questions": [
     {
