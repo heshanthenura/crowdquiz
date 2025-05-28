@@ -7,10 +7,12 @@ import AddQuizPage from "./pages/add-quiz/AddQuizPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import QuizPage from "./pages/quizpage/QuizPage";
 import { AuthProvider } from "./context/AuthContext";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function App() {
   return (
     <AuthProvider>
+      <SpeedInsights />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/quizzes" element={<QuizzesPage />} />
