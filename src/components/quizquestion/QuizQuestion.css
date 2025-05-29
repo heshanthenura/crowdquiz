@@ -45,7 +45,7 @@
 }
 
 .quiz-answer-btn:hover:enabled {
-  background-color: #d5d5d5;
+  /* background-color: #d5d5d5; */
   transform: scale(1.01);
 }
 

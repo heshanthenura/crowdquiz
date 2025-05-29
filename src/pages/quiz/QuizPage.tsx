@@ -14,14 +14,15 @@ function QuizPage() {
   const [loading, setLoading] = useState(true);
   const [isQuizStarted, setIsQuizStarted] = useState(false);
   const [isQuizOver, setIsQuizOver] = useState(false);
+  const [timeLeft, setTimeLeft] = useState<number>(0); // in seconds
 
+  // Fetch quiz
   useEffect(() => {
     const fetchQuiz = async () => {
       if (!quizId) return;
       try {
         const data = await getQuizById(quizId);
         setQuiz(data);
-        console.log(data);
       } catch (err) {
         console.error("Failed to fetch quiz:", err);
       } finally {
@@ -31,12 +32,41 @@ function QuizPage() {
     fetchQuiz();
   }, [quizId]);
 
+  // Start or finish quiz
   const startQuiz = () => {
     if (isQuizStarted) {
       setIsQuizOver(true);
     } else {
+      if (quiz?.time) {
+        setTimeLeft(quiz.time * 60); // Convert minutes to seconds
+      }
       setIsQuizStarted(true);
     }
+  };
+
+  useEffect(() => {
+    if (!isQuizStarted || isQuizOver || timeLeft <= 0) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          setIsQuizOver(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isQuizStarted, isQuizOver, timeLeft]);
+
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60)
+      .toString()
+      .padStart(2, "0");
+    const s = (seconds % 60).toString().padStart(2, "0");
+    return `${m}:${s}`;
   };
 
   return (
@@ -63,7 +93,7 @@ function QuizPage() {
                 <strong>Total Questions:</strong> {quiz.numberOfQuestions}
               </p>
               <p>
-                <strong>Estimated Time:</strong> {quiz.time} minutes
+                <strong>Time:</strong> {quiz.time} minutes
               </p>
               <p>
                 <strong>Quiz Type:</strong> {quiz.quizType.join(", ")}
@@ -76,6 +106,25 @@ function QuizPage() {
           </div>
         )}
       </div>
+
+      {isQuizStarted && (
+        <div className="timer-container">
+          <div className="timer-text">⏱ Time Left: {formatTime(timeLeft)}</div>
+          <div
+            className="timer-progress-bar"
+            style={{
+              width: `${(timeLeft / (quiz!.time * 60)) * 100}%`,
+              backgroundColor:
+                timeLeft / (quiz!.time * 60) > 0.5
+                  ? "#4caf50"
+                  : timeLeft / (quiz!.time * 60) > 0.25
+                  ? "#ffc107"
+                  : "#f44336",
+            }}
+          ></div>
+        </div>
+      )}
+
       {isQuizStarted && (
         <div className="quiz-container-wrap">
           {quiz?.questions.map((question: Question, index: number) => (
