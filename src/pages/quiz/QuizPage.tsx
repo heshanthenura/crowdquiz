@@ -5,11 +5,15 @@ import "./QuizPage.css";
 import NavBar from "../../components/navbar/NavBar";
 import { getQuizById } from "../../utils/getQuizById";
 import type { Quiz } from "../../types/Quiz";
+import QuizQuestion from "../../components/quizquestion/QuizQuestion";
+import type { Question } from "../../types/ValidationResult";
 
 function QuizPage() {
   const { quizId } = useParams<{ quizId: string }>();
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isQuizStarted, setIsQuizStarted] = useState(false);
+  const [isQuizOver, setIsQuizOver] = useState(false);
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -26,6 +30,14 @@ function QuizPage() {
     };
     fetchQuiz();
   }, [quizId]);
+
+  const startQuiz = () => {
+    if (isQuizStarted) {
+      setIsQuizOver(true);
+    } else {
+      setIsQuizStarted(true);
+    }
+  };
 
   return (
     <>
@@ -58,12 +70,38 @@ function QuizPage() {
               </p>
             </div>
 
-            <a href={`/attempt/${quiz.quizId}`} className="attempt-quiz-btn">
-              Start Quiz
+            <a className="attempt-quiz-btn" onClick={startQuiz}>
+              {isQuizStarted ? "Finish Quiz" : "Start Quiz"}
             </a>
           </div>
         )}
       </div>
+      {isQuizStarted && (
+        <div className="quiz-container-wrap">
+          {quiz?.questions.map((question: Question, index: number) => (
+            <QuizQuestion
+              key={index}
+              question={question}
+              isQuizOver={isQuizOver}
+            />
+          ))}
+
+          {!isQuizOver && (
+            <div className="bottom-finish-btn-container">
+              <button className="attempt-quiz-btn" onClick={startQuiz}>
+                Finish Quiz
+              </button>
+            </div>
+          )}
+
+          <button
+            className="go-to-top-btn"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            ⬆ Top
+          </button>
+        </div>
+      )}
     </>
   );
 }
