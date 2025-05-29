@@ -14,9 +14,9 @@ function QuizPage() {
   const [loading, setLoading] = useState(true);
   const [isQuizStarted, setIsQuizStarted] = useState(false);
   const [isQuizOver, setIsQuizOver] = useState(false);
-  const [timeLeft, setTimeLeft] = useState<number>(0); // in seconds
+  const [timeLeft, setTimeLeft] = useState<number>(0);
+  const [totalTime, setTotalTime] = useState<number>(0);
 
-  // Fetch quiz
   useEffect(() => {
     const fetchQuiz = async () => {
       if (!quizId) return;
@@ -32,41 +32,68 @@ function QuizPage() {
     fetchQuiz();
   }, [quizId]);
 
-  // Start or finish quiz
+  useEffect(() => {
+    if (isQuizStarted && quiz) {
+      const totalSeconds = quiz.time * 60;
+      setTimeLeft(totalSeconds);
+      setTotalTime(totalSeconds);
+
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            setIsQuizOver(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [isQuizStarted, quiz]);
+
   const startQuiz = () => {
     if (isQuizStarted) {
       setIsQuizOver(true);
     } else {
-      if (quiz?.time) {
-        setTimeLeft(quiz.time * 60); // Convert minutes to seconds
-      }
       setIsQuizStarted(true);
     }
   };
 
-  useEffect(() => {
-    if (!isQuizStarted || isQuizOver || timeLeft <= 0) return;
-
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          setIsQuizOver(true);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [isQuizStarted, isQuizOver, timeLeft]);
-
-  const formatTime = (seconds: number) => {
+  const formatTime = (seconds: number): string => {
     const m = Math.floor(seconds / 60)
       .toString()
       .padStart(2, "0");
     const s = (seconds % 60).toString().padStart(2, "0");
     return `${m}:${s}`;
+  };
+
+  const getProgressBarStyle = () => {
+    if (!totalTime) return {};
+
+    const percentage = (timeLeft / totalTime) * 100;
+
+    let backgroundColor = "#4caf50"; // green
+    if (percentage <= 25) {
+      backgroundColor = "#f44336"; // red
+    } else if (percentage <= 50) {
+      backgroundColor = "#ffc107"; // yellow
+    }
+
+    return {
+      width: `${percentage}%`,
+      backgroundColor,
+    };
+  };
+
+  const getTimerTextColor = () => {
+    if (!totalTime) return "#333";
+    const percentage = (timeLeft / totalTime) * 100;
+
+    if (percentage <= 25) return "#f44336";
+    if (percentage <= 50) return "#ffc107";
+    return "#4caf50";
   };
 
   return (
@@ -109,18 +136,12 @@ function QuizPage() {
 
       {isQuizStarted && (
         <div className="timer-container">
-          <div className="timer-text">⏱ Time Left: {formatTime(timeLeft)}</div>
+          <div className="timer-text" style={{ color: getTimerTextColor() }}>
+            ⏱ Time Left: {formatTime(timeLeft)}
+          </div>
           <div
             className="timer-progress-bar"
-            style={{
-              width: `${(timeLeft / (quiz!.time * 60)) * 100}%`,
-              backgroundColor:
-                timeLeft / (quiz!.time * 60) > 0.5
-                  ? "#4caf50"
-                  : timeLeft / (quiz!.time * 60) > 0.25
-                  ? "#ffc107"
-                  : "#f44336",
-            }}
+            style={getProgressBarStyle()}
           ></div>
         </div>
       )}
