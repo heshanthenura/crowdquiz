@@ -1,22 +1,31 @@
-import { useState } from "react";
 import type { Question } from "../../types/ValidationResult";
 import "./QuizQuestion.css";
 
 interface QuizQuestionProps {
   question: Question;
   isQuizOver: boolean;
+  selectedAnswerIndex: number | null;
+  onAnswerSelected: (answerIndex: number | null) => void;
 }
 
-function QuizQuestion({ question, isQuizOver }: QuizQuestionProps) {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-
+function QuizQuestion({
+  question,
+  isQuizOver,
+  selectedAnswerIndex,
+  onAnswerSelected,
+}: QuizQuestionProps) {
   const handleSelect = (index: number) => {
     if (!isQuizOver) {
-      setSelectedIndex(selectedIndex === index ? null : index);
+      if (selectedAnswerIndex === index) {
+        // Deselect if clicking the already selected answer
+        onAnswerSelected(null);
+      } else {
+        onAnswerSelected(index);
+      }
     }
   };
 
-  const noSelection = selectedIndex === null && isQuizOver;
+  const noSelection = selectedAnswerIndex === null && isQuizOver;
 
   return (
     <div className={`quiz-question-wrap ${noSelection ? "no-selection" : ""}`}>
@@ -26,14 +35,14 @@ function QuizQuestion({ question, isQuizOver }: QuizQuestionProps) {
           let btnClass = "quiz-answer-btn";
 
           if (isQuizOver) {
-            if (index === selectedIndex) {
+            if (index === selectedAnswerIndex) {
               btnClass += option.isCorrect
                 ? " selected correct"
                 : " selected wrong";
             } else if (option.isCorrect) {
               btnClass += " correct-unselected";
             }
-          } else if (index === selectedIndex) {
+          } else if (index === selectedAnswerIndex) {
             btnClass += " selected";
           }
 

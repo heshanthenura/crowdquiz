@@ -17,6 +17,9 @@ function QuizPage() {
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [totalTime, setTotalTime] = useState<number>(0);
 
+  // Allow null to represent no selection
+  const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>([]);
+
   useEffect(() => {
     const fetchQuiz = async () => {
       if (!quizId) return;
@@ -33,7 +36,13 @@ function QuizPage() {
   }, [quizId]);
 
   useEffect(() => {
-    if (isQuizStarted && quiz) {
+    if (quiz) {
+      setSelectedAnswers(new Array(quiz.questions.length).fill(null));
+    }
+  }, [quiz]);
+
+  useEffect(() => {
+    if (isQuizStarted && quiz && !isQuizOver) {
       const totalSeconds = quiz.time * 60;
       setTimeLeft(totalSeconds);
       setTotalTime(totalSeconds);
@@ -51,7 +60,10 @@ function QuizPage() {
 
       return () => clearInterval(timer);
     }
-  }, [isQuizStarted, quiz]);
+    if (isQuizOver) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [isQuizStarted, quiz, isQuizOver]);
 
   const startQuiz = () => {
     if (isQuizStarted) {
@@ -96,6 +108,33 @@ function QuizPage() {
     return "#4caf50";
   };
 
+  // Handle answer selection from QuizQuestion, allow deselect with null
+  const handleAnswerSelected = (
+    questionIndex: number,
+    answerIndex: number | null
+  ) => {
+    setSelectedAnswers((prev) => {
+      const updated = [...prev];
+      updated[questionIndex] = answerIndex;
+      return updated;
+    });
+  };
+
+  // Calculate how many answers are correct
+  const correctCount: number = quiz
+    ? selectedAnswers.reduce((count: number, selectedIndex, i) => {
+        const question = quiz.questions[i];
+        if (
+          selectedIndex !== null &&
+          question &&
+          question.answers[selectedIndex]?.isCorrect
+        ) {
+          return count + 1;
+        }
+        return count;
+      }, 0)
+    : 0;
+
   return (
     <>
       <NavBar />
@@ -125,52 +164,86 @@ function QuizPage() {
               <p>
                 <strong>Quiz Type:</strong> {quiz.quizType.join(", ")}
               </p>
+
+              {isQuizOver && (
+                <p
+                  className="correct-answers-banner"
+                  style={{
+                    backgroundColor:
+                      correctCount / quiz.questions.length > 0.75
+                        ? "#4caf50" // green
+                        : correctCount / quiz.questions.length >= 0.25
+                        ? "#ffc107" // yellow
+                        : "#f44336", // red
+                  }}
+                >
+                  <strong>Correct Answers:</strong> {correctCount} /{" "}
+                  {quiz.questions.length}
+                </p>
+              )}
             </div>
 
-            <a className="attempt-quiz-btn" onClick={startQuiz}>
-              {isQuizStarted ? "Finish Quiz" : "Start Quiz"}
+            <a
+              className="attempt-quiz-btn"
+              onClick={() => {
+                if (isQuizOver) {
+                  window.location.reload();
+                } else {
+                  startQuiz();
+                }
+              }}
+            >
+              {isQuizOver
+                ? "Reattempt Quiz"
+                : isQuizStarted
+                ? "Finish Quiz"
+                : "Start Quiz"}
             </a>
           </div>
         )}
       </div>
 
       {isQuizStarted && (
-        <div className="timer-container">
-          <div className="timer-text" style={{ color: getTimerTextColor() }}>
-            ⏱ Time Left: {formatTime(timeLeft)}
-          </div>
-          <div
-            className="timer-progress-bar"
-            style={getProgressBarStyle()}
-          ></div>
-        </div>
-      )}
-
-      {isQuizStarted && (
-        <div className="quiz-container-wrap">
-          {quiz?.questions.map((question: Question, index: number) => (
-            <QuizQuestion
-              key={index}
-              question={question}
-              isQuizOver={isQuizOver}
-            />
-          ))}
-
-          {!isQuizOver && (
-            <div className="bottom-finish-btn-container">
-              <button className="attempt-quiz-btn" onClick={startQuiz}>
-                Finish Quiz
-              </button>
+        <>
+          <div className="timer-container">
+            <div className="timer-text" style={{ color: getTimerTextColor() }}>
+              ⏱ Time Left: {formatTime(timeLeft)}
             </div>
-          )}
+            <div
+              className="timer-progress-bar"
+              style={getProgressBarStyle()}
+            ></div>
+          </div>
 
-          <button
-            className="go-to-top-btn"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            ⬆ Top
-          </button>
-        </div>
+          <div className="quiz-container-wrap">
+            {quiz?.questions.map((question: Question, index: number) => (
+              <QuizQuestion
+                key={index}
+                question={question}
+                isQuizOver={isQuizOver}
+                selectedAnswerIndex={selectedAnswers[index]}
+                onAnswerSelected={(answerIndex) =>
+                  handleAnswerSelected(index, answerIndex)
+                }
+              />
+            ))}
+
+            {!isQuizOver && (
+              <div className="bottom-finish-btn-container">
+                <button className="attempt-quiz-btn" onClick={startQuiz}>
+                  Finish Quiz
+                </button>
+              </div>
+            )}
+
+            <button
+              className="go-to-top-btn"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              ⬆ Top
+            </button>
+          </div>
+        </>
       )}
     </>
   );

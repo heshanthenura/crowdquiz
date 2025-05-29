@@ -222,6 +222,18 @@
   transition: width 1s linear, background-color 0.3s ease;
 }
 
+.correct-answers-banner {
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+  padding: 12px 0;
+  margin-top: 1rem;
+  border-radius: 4px;
+  user-select: none;
+  grid-column: span 2;
+}
+
 @media (max-width: 768px) {
   .quiz-details {
     padding: 1rem;
