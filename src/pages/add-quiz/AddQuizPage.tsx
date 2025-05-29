@@ -1,13 +1,20 @@
-import { useEffect, useState } from "react";
-import NavBar from "../../components/navbar/NavBar";
+import React, { useEffect, useState } from "react";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import "./AddQuizPage.css";
-import { validateJson } from "../../utils/jsonValidator";
+
+import NavBar from "../../components/navbar/NavBar";
+
 import { type QuizForm } from "../../types/QuizForm";
 import { type ValidationResult } from "../../types/ValidationResult";
+import { type Quiz } from "../../types/Quiz";
 import { addQuiz } from "../../utils/addQuiz";
-import type { Quiz } from "../../types/Quiz";
+import { validateJson } from "../../utils/jsonValidator";
 
 function AddQuizPage() {
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [jsonInput, setJsonInput] = useState("");
   const [validation, setValidation] = useState<ValidationResult>({
     valid: false,
@@ -35,23 +42,50 @@ function AddQuizPage() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!validation.valid) {
       alert("Please enter a valid JSON");
       return;
-    } else {
-      const quiz: Quiz = {
-        ...form,
-        userId: undefined,
-        userName: null,
-        userEmail: null,
-        dateCreated: new Date().toISOString(),
-        timeCreated: new Date().getTime(),
-        questions: validation.questions,
-      };
+    }
 
-      addQuiz(quiz);
+    setIsSubmitting(true);
+    const toastId = toast.loading("Adding quiz...", {
+      position: "top-center",
+    });
+
+    const quiz: Quiz = {
+      ...form,
+      userId: undefined,
+      userName: null,
+      userEmail: null,
+      dateCreated: new Date().toISOString(),
+      timeCreated: new Date().getTime(),
+      questions: validation.questions,
+      quizId: "",
+    };
+
+    try {
+      await addQuiz(quiz);
+      toast.update(toastId, {
+        render: "Quiz added successfully!",
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+        closeOnClick: true,
+      });
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast.update(toastId, {
+        render: "Failed to add quiz.",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+        closeOnClick: true,
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -63,6 +97,8 @@ function AddQuizPage() {
 
   return (
     <div className="add-quiz-page">
+      {" "}
+      <ToastContainer />
       <NavBar />
       <div className="add-quiz-content">
         <div className="add-quiz-header">
@@ -188,9 +224,12 @@ function AddQuizPage() {
                 rows={10}
               />
             </div>
-
-            <button type="submit" className="submit-btn">
-              Create Quiz
+            <button
+              type="submit"
+              className="submit-btn"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Create Quiz"}
             </button>
           </div>
         </form>

@@ -5,7 +5,7 @@ import QuizzesPage from "./pages/quizzes/QuizzesPage";
 import AboutPage from "./pages/about/AboutPage";
 import AddQuizPage from "./pages/add-quiz/AddQuizPage";
 import ProfilePage from "./pages/profile/ProfilePage";
-import QuizPage from "./pages/quizpage/QuizPage";
+import QuizPage from "./pages/quiz/QuizPage";
 import { AuthProvider } from "./context/AuthContext";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 

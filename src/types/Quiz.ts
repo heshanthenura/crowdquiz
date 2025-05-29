@@ -1,9 +1,10 @@
 import { type Question } from "./ValidationResult";
 
 export interface Quiz {
+  quizId: string;
+  userId: string | undefined;
   dateCreated: string;
   timeCreated: number;
-  userId: string | undefined;
   userName: string | null;
   userEmail: string | null;
   title: string;
