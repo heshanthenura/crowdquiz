@@ -1,5 +1,5 @@
 .quiz-card-wrap {
-  /* width: 100%; */
+  width: 300px; /* Set a fixed width for uniform size */
   background: white;
   border-radius: 12px;
   overflow: hidden;

@@ -1,4 +1,4 @@
-import QuizCard from "../quizecard/QuizCard";
+import QuizCard from "../quizcard/QuizCard";
 import "./RecentSection.css";
 
 import { getRecentQuizzes } from "../../utils/getRecentQuiz";
